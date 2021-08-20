@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qLx0TzB3XMKPhZ8W+DbW5shpFzX3JmFcGBS7HLqJLeKjyHBZjEn7LbUEjBAhSrsvvHFVhhaKU10sleYG1fyVwg==",
+  "dgSpecHash": "Ae7AagVn0/b26Y6LTtb6FSP4k/PauNoRf3d7inAIE6bVnih9UIPQ4k7qzJ8sf92Qu4gjTHkTI/a3zZOYeW3hcg==",
   "success": true,
   "projectFilePath": "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\5.0.9\\microsoft.aspnetcore.authentication.google.5.0.9.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.7\\microsoft.aspnetcore.mvc.razor.extensions.5.0.7.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.7\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.7.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\5.0.7\\microsoft.aspnetcore.razor.language.5.0.7.nupkg.sha512",

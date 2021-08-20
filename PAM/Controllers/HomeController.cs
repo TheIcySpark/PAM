@@ -23,10 +23,21 @@ namespace PAM.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Peliculas()
         {
             return View();
         }
+
+        public IActionResult Anime()
+        {
+            return View();
+        }
+
+        public IActionResult Videojuegos()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
