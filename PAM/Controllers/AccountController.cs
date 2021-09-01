@@ -10,15 +10,16 @@ namespace PAM.Controllers
 {
     public class AccountController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/Users");
         }
 
         [Authorize]
         public IActionResult Login()
         {
-            return Redirect("/");
+            return Redirect("/Users");
         }
 
         [Authorize]

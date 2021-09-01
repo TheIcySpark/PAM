@@ -10,15 +10,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using PAM.Data;
+using PAM.Models;
+using PAM.Controllers;
 
 namespace PAM
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
 
         public IConfiguration Configuration { get; }
 
@@ -43,6 +49,9 @@ namespace PAM
                     options.CallbackPath = "/PAM";
                     options.AuthorizationEndpoint += "?prompt=consent";
                 });
+
+            services.AddDbContext<PAMContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("PAMContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

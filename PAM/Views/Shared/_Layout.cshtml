@@ -27,11 +27,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Videojuegos">Videojuegos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="">Usuarios</a>
+                        </li>
                     </ul>
                     @{
                         if (User.Identity.IsAuthenticated)
                         {
-                           <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Cerrar sesion</a>
+                           <a class="btn btn-info nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Cerrar sesion</a>
                         }
                         else
                         {

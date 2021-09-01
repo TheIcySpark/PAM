@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PAM.Models.User>
+
+<h1>Usuarios</h1>
+
+<table class="table text-white">
+    <thead>
+        <tr>
+            <th>
+                UserID
+            </th>
+            <th>
+                UserDisplayUserName
+            </th>
+            <th>
+                UserPhoto
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.UserID
+                </td>
+                <td>
+                    @item.UserName
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Welcome @User.Identity.Name</h2>
+<ul>
+    @foreach (var c in User.Claims)
+    {
+        <li>@c.Type: @c.Value</li>
+    }
+</ul>
+
