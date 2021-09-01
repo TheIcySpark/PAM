@@ -24,14 +24,31 @@ namespace PAM.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var identifier = User.Claims
+                string currentUserGoogleIdentifier = User.Claims
                     .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                     .Select(c => c.Value)
                     .FirstOrDefault();
-                
-            }
-            await _context.SaveChangesAsync();
 
+                string googleIdentifier = _context.User
+                    .Where(user => user.GoogleUserID == currentUserGoogleIdentifier)
+                    .Select(user => user.GoogleUserID)
+                    .FirstOrDefault();
+
+                if (googleIdentifier == null)
+                {
+                    string userName = User.Claims
+                        .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")
+                        .Select(c => c.Value)
+                        .FirstOrDefault();
+                    _context.Add(new User
+                    {
+                        GoogleUserID = currentUserGoogleIdentifier,
+                        UserName = userName,
+                        Photo = new byte[] {0}
+                    });
+                    await _context.SaveChangesAsync();
+                }
+            }
             return View(await _context.User.ToListAsync());
         }
 
