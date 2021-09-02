@@ -1,44 +1,47 @@
 ﻿@model IEnumerable<PAM.Models.User>
 
-<h1>Usuarios</h1>
+@{
+    ViewData["Title"] = "Index";
+}
 
-<table class="table text-white">
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
     <thead>
         <tr>
             <th>
-                UserID
+                @Html.DisplayNameFor(model => model.GoogleUserID)
             </th>
             <th>
-                UserDisplayUserName
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                Google user ID
+                @Html.DisplayNameFor(model => model.Photo)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.UserID
-                </td>
-                <td>
-                    @item.UserName
-                </td>
-                <td>
-                    @item.GoogleUserID
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleUserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-
-<h2>Welcome @User.Identity.Name</h2>
-<ul>
-    @foreach (var c in User.Claims)
-    {
-        <li>@c.Type: @c.Value</li>
-    }
-</ul>
-

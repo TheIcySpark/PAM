@@ -41,6 +41,7 @@ namespace PAM
                 {
                     options.LoginPath = "/Account/Login";
                     options.AccessDeniedPath = "/Account/Denied";
+                    
                 })
                 .AddGoogle(options =>
                 {

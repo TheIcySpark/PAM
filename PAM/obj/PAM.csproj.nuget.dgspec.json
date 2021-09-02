@@ -67,6 +67,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "microsoft-web-helpers": {
+              "target": "Package",
+              "version": "[2.1.20710.2, )"
             }
           },
           "imports": [

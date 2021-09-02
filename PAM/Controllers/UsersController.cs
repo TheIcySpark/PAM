@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PAM.Data;
 using PAM.Models;
+using System.Web.Helpers;
 
 namespace PAM.Controllers
 {
@@ -22,33 +23,6 @@ namespace PAM.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string currentUserGoogleIdentifier = User.Claims
-                    .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                    .Select(c => c.Value)
-                    .FirstOrDefault();
-
-                string googleIdentifier = _context.User
-                    .Where(user => user.GoogleUserID == currentUserGoogleIdentifier)
-                    .Select(user => user.GoogleUserID)
-                    .FirstOrDefault();
-
-                if (googleIdentifier == null)
-                {
-                    string userName = User.Claims
-                        .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")
-                        .Select(c => c.Value)
-                        .FirstOrDefault();
-                    _context.Add(new User
-                    {
-                        GoogleUserID = currentUserGoogleIdentifier,
-                        UserName = userName,
-                        Photo = new byte[] {0}
-                    });
-                    await _context.SaveChangesAsync();
-                }
-            }
             return View(await _context.User.ToListAsync());
         }
 
@@ -81,7 +55,7 @@ namespace PAM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserID,UserDisplayUserName,UserPhoto")] User user)
+        public async Task<IActionResult> Create([Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -113,7 +87,7 @@ namespace PAM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserID,UserDisplayUserName,UserPhoto")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
             if (id != user.UserID)
             {
