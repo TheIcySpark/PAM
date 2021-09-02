@@ -447,3 +447,4 @@ C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\Syste
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\WebMatrix.Data.dll
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\WebMatrix.WebData.dll
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\Users\EditProfile.cshtml.g.cs

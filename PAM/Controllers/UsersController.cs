@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using PAM.Data;
 using PAM.Models;
 using System.Web.Helpers;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace PAM.Controllers
 {
@@ -25,6 +27,31 @@ namespace PAM.Controllers
         {
             return View(await _context.User.ToListAsync());
         }
+
+        
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(IFormFile photo)
+        {
+            var dbI = new User()
+            {
+                UserName = "test",
+                GoogleUserID = "xd",
+            };
+            using(var target = new MemoryStream())
+            {
+                photo.CopyTo(target);
+                dbI.Photo = target.ToArray();
+            }
+            _context.User.Add(dbI);
+            _context.SaveChanges();
+            return View();
+        }
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,0 +1,15 @@
+﻿
+
+
+<h1>
+    Edita tu perfil
+</h1>
+
+<form asp-controller="users" asp-action="EditProfile" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label>Foto</label>
+        <input type="file" name="photo" />   
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
