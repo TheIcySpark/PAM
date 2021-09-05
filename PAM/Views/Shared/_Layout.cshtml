@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head class="bg-dark">
     <meta charset="utf-8" />
@@ -34,16 +36,22 @@
                     @{
                         if (User.Identity.IsAuthenticated)
                         {
+                            string googleId = User.Claims
+                                .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                                .Select(c => c.Value)
+                                .FirstOrDefault();
+
                             <div class="dropdown show">
-                                <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sesion
+                                <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="@ViewBag.imgsrc" width="50" height="50" class="rounded-circle"/>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Users" asp-action="EditProfile">Editar Perfil</a>
+                                    <a class="dropdown-item" asp-controller="Users" asp-action="EditProfile" asp-route-googleId="@googleId">
+                                        Editar Perfil
+                                    </a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Cerrar Sesion</a>
                                 </div>
                             </div>
-                           <a class="btn btn-info nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Cerrar sesion</a>
                         }
                         else
                         {
@@ -62,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - PAM 
+            &copy; 2021 - PAM
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,5 +1,8 @@
-﻿
+﻿@model PAM.Models.User
 
+@{
+    ViewData["Title"] = "EditProfile";
+}
 
 <h1>
     Edita tu perfil
@@ -7,8 +10,24 @@
 
 <form asp-controller="users" asp-action="EditProfile" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <label>Foto</label>
-        <input type="file" name="photo" />   
+        <label>Foto Actual: </label>
+        @{
+            if (Model.Photo != null)
+            {
+                var base64 = Convert.ToBase64String(Model.Photo);
+                var imagsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                <img src=@imagsrc style="max-height:400px" class="rounded" />
+            }
+        }
+        <br />
+        <input type="file" name="photo" />
+    </div>
+    <div class="form-group">
+        <label>User Name: </label>
+        @{
+            string s = Model.UserName;
+        }
+        <input type="text" value="@Model.UserName" name="userName" />
     </div>
 
     <button type="submit" class="btn btn-primary">Actualizar</button>

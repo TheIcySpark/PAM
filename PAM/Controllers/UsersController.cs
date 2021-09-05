@@ -10,6 +10,8 @@ using PAM.Models;
 using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PAM.Controllers
 {
@@ -22,40 +24,114 @@ namespace PAM.Controllers
             _context = context;
         }
 
+        public void SetViewBagImage()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string googleId = User.Claims
+                    .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(c => c.Value)
+                    .FirstOrDefault();
+                var user = _context.User.FirstOrDefault(m => m.GoogleUserID == googleId);
+                if (user.Photo == null) return;
+                var base64 = Convert.ToBase64String(user.Photo);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                ViewBag.imgsrc = imgsrc;
+            }
+        }
+
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                string currentUserGoogleIdentifier = User.Claims
+                    .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                    .Select(c => c.Value)
+                    .FirstOrDefault();
+
+                string googleIdentifier = _context.User
+                    .Where(user => user.GoogleUserID == currentUserGoogleIdentifier)
+                    .Select(user => user.GoogleUserID)
+                    .FirstOrDefault();
+
+                if (googleIdentifier == null)
+                {
+                    string userName = User.Claims
+                        .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")
+                        .Select(c => c.Value)
+                        .FirstOrDefault();
+                    _context.Add(new User
+                    {
+                        GoogleUserID = currentUserGoogleIdentifier,
+                        UserName = userName,
+                        Photo = null
+                    });
+                    await _context.SaveChangesAsync();
+                }
+            }
+            SetViewBagImage();
             return View(await _context.User.ToListAsync());
         }
 
-        
-        public IActionResult EditProfile()
+        [Authorize]
+        public async Task<IActionResult> EditProfile(string? googleId)
         {
-            return View();
+            SetViewBagImage();
+            if(googleId == null)
+            {
+                return NotFound();
+            }
+            string googleCurrentUserId = User.Claims
+                .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                .Select(c => c.Value)
+                .FirstOrDefault();
+            if(googleCurrentUserId != googleId)
+            {
+                Redirect("/Account/Denied");
+            }
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.GoogleUserID == googleId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
         }
 
-        [HttpPost]
-        public IActionResult EditProfile(IFormFile photo)
+
+        [HttpPost][Authorize]
+        public async Task<IActionResult> EditProfile(IFormFile photo, string userName)
         {
-            var dbI = new User()
+            SetViewBagImage();
+            string googleId = User.Claims
+                .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                .Select(c => c.Value)
+                .FirstOrDefault();
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.GoogleUserID == googleId);
+            if(user == null)
             {
-                UserName = "test",
-                GoogleUserID = "xd",
-            };
+                return NotFound();
+            }
+            user.UserName = userName;
             using(var target = new MemoryStream())
             {
-                photo.CopyTo(target);
-                dbI.Photo = target.ToArray();
+                if(photo != null)
+                {
+                    photo.CopyTo(target);
+                    user.Photo = target.ToArray();
+                }
             }
-            _context.User.Add(dbI);
             _context.SaveChanges();
-            return View();
+            return View(user);
         }
 
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            SetViewBagImage();
             if (id == null)
             {
                 return NotFound();
@@ -74,6 +150,7 @@ namespace PAM.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
+            SetViewBagImage();
             return View();
         }
 
@@ -84,6 +161,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
+            SetViewBagImage();
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -96,6 +174,7 @@ namespace PAM.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            SetViewBagImage();
             if (id == null)
             {
                 return NotFound();
@@ -116,6 +195,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
+            SetViewBagImage();
             if (id != user.UserID)
             {
                 return NotFound();
@@ -147,6 +227,7 @@ namespace PAM.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            SetViewBagImage();
             if (id == null)
             {
                 return NotFound();
@@ -167,6 +248,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            SetViewBagImage();
             var user = await _context.User.FindAsync(id);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
@@ -175,6 +257,7 @@ namespace PAM.Controllers
 
         private bool UserExists(int id)
         {
+            SetViewBagImage();
             return _context.User.Any(e => e.UserID == id);
         }
     }
