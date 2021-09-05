@@ -2,11 +2,7 @@
 using Microsoft.Extensions.Logging;
 using PAM.Data;
 using PAM.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PAM.Controllers
 {
@@ -15,50 +11,36 @@ namespace PAM.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly PAMContext _context;
+        private readonly ViewBagImageController _viewBagImageController;
 
         public HomeController(ILogger<HomeController> logger, PAMContext context)
         {
             _logger = logger;
             _context = context;
-        }
-
-        public void SetViewBagImage()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                string googleId = User.Claims
-                    .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                    .Select(c => c.Value)
-                    .FirstOrDefault();
-                var user = _context.User.FirstOrDefault(m => m.GoogleUserID == googleId);
-                if (user.Photo == null) return;
-                var base64 = Convert.ToBase64String(user.Photo);
-                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-                ViewBag.imgsrc = imgsrc;
-            }
+            _viewBagImageController = new ViewBagImageController(_context);
         }
 
         public IActionResult Index()
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return View();
         }
 
         public IActionResult Peliculas()
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return View();
         }
 
         public IActionResult Anime()
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return View();
         }
 
         public IActionResult Videojuegos()
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return View();
         }
 

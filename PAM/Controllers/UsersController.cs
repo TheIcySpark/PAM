@@ -1,43 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PAM.Data;
 using PAM.Models;
-using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PAM.Controllers
 {
     public class UsersController : Controller
     {
         private readonly PAMContext _context;
-
+        private readonly ViewBagImageController _viewBagImageController;
         public UsersController(PAMContext context)
         {
             _context = context;
-        }
-
-        public void SetViewBagImage()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                string googleId = User.Claims
-                    .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
-                    .Select(c => c.Value)
-                    .FirstOrDefault();
-                var user = _context.User.FirstOrDefault(m => m.GoogleUserID == googleId);
-                if (user.Photo == null) return;
-                var base64 = Convert.ToBase64String(user.Photo);
-                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-                ViewBag.imgsrc = imgsrc;
-            }
+            _viewBagImageController = new ViewBagImageController(_context);
         }
 
         // GET: Users
@@ -70,15 +50,15 @@ namespace PAM.Controllers
                     await _context.SaveChangesAsync();
                 }
             }
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return View(await _context.User.ToListAsync());
         }
 
         [Authorize]
         public async Task<IActionResult> EditProfile(string? googleId)
         {
-            SetViewBagImage();
-            if(googleId == null)
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
+            if (googleId == null)
             {
                 return NotFound();
             }
@@ -103,7 +83,7 @@ namespace PAM.Controllers
         [HttpPost][Authorize]
         public async Task<IActionResult> EditProfile(IFormFile photo, string userName)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             string googleId = User.Claims
                 .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
                 .Select(c => c.Value)
@@ -131,7 +111,7 @@ namespace PAM.Controllers
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             if (id == null)
             {
                 return NotFound();
@@ -150,7 +130,7 @@ namespace PAM.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            SetViewBagImage();
+            //_viewBagImage.SetViewBagImage();
             return View();
         }
 
@@ -161,7 +141,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -174,7 +154,7 @@ namespace PAM.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             if (id == null)
             {
                 return NotFound();
@@ -195,7 +175,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,GoogleUserID,UserName,Photo")] User user)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             if (id != user.UserID)
             {
                 return NotFound();
@@ -227,7 +207,7 @@ namespace PAM.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             if (id == null)
             {
                 return NotFound();
@@ -248,7 +228,7 @@ namespace PAM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             var user = await _context.User.FindAsync(id);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
@@ -257,7 +237,7 @@ namespace PAM.Controllers
 
         private bool UserExists(int id)
         {
-            SetViewBagImage();
+            ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
             return _context.User.Any(e => e.UserID == id);
         }
     }
