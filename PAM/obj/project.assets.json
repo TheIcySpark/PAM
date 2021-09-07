@@ -11,6 +11,18 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "IMDbApiLib/1.6.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/IMDbApiLib.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IMDbApiLib.dll": {}
+        }
+      },
       "microsoft-web-helpers/2.1.20710.2": {
         "type": "package",
         "dependencies": {
@@ -968,7 +980,7 @@
           }
         }
       },
-      "Newtonsoft.Json/11.0.2": {
+      "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -2153,6 +2165,20 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "IMDbApiLib/1.6.3.1": {
+      "sha512": "GQpF7B+daZVpMCdTu4YmTLst01a+91XJdHaQPOLlp3mprwp8nj5C9ral3a6P0wFtlT9klBrJv5/u0MoDaq3eGg==",
+      "type": "package",
+      "path": "imdbapilib/1.6.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "IMDbApiLib_Icon.png",
+        "imdbapilib.1.6.3.1.nupkg.sha512",
+        "imdbapilib.nuspec",
+        "lib/net45/IMDbApiLib.dll",
+        "lib/netstandard2.0/IMDbApiLib.dll"
       ]
     },
     "microsoft-web-helpers/2.1.20710.2": {
@@ -3793,10 +3819,10 @@
         "version.txt"
       ]
     },
-    "Newtonsoft.Json/11.0.2": {
-      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
       "type": "package",
-      "path": "newtonsoft.json/11.0.2",
+      "path": "newtonsoft.json/13.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3815,12 +3841,9 @@
         "lib/netstandard1.3/Newtonsoft.Json.xml",
         "lib/netstandard2.0/Newtonsoft.Json.dll",
         "lib/netstandard2.0/Newtonsoft.Json.xml",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
-        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
-        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.11.0.2.nupkg.sha512",
-        "newtonsoft.json.nuspec"
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "runtime.native.System/4.3.0": {
@@ -7422,6 +7445,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "IMDbApiLib >= 1.6.3.1",
       "Microsoft.AspNetCore.Authentication.Google >= 5.0.9",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.9",
@@ -7470,6 +7494,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "IMDbApiLib": {
+            "target": "Package",
+            "version": "[1.6.3.1, )"
+          },
           "Microsoft.AspNetCore.Authentication.Google": {
             "target": "Package",
             "version": "[5.0.9, )"

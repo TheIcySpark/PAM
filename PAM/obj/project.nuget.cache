@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dQcBf8Ew5cWtSHnlAM26dJt/Pj+kWSznefh3vbyeIMs0Sdc2C+NhH2Bvc7CB1ALm10UL2CsF4zeKpxl12BmEug==",
+  "dgSpecHash": "NQXm7KRnRpf2vzSL6YAjkg4jNhWR5vmG8U3lev2ntw2D9gY+EKqSqDIU0icOp+4MfPQPRgX2ZGNVwr0E/tlnhQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\TheIcySpark\\.nuget\\packages\\imdbapilib\\1.6.3.1\\imdbapilib.1.6.3.1.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft-web-helpers\\2.1.20710.2\\microsoft-web-helpers.2.1.20710.2.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnet.razor\\2.0.20505\\microsoft.aspnet.razor.2.0.20505.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.aspnet.webpages\\2.0.20505\\microsoft.aspnet.webpages.2.0.20505.nupkg.sha512",
@@ -63,7 +64,7 @@
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\TheIcySpark\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\TheIcySpark\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\TheIcySpark\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
