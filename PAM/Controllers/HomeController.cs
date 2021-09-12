@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IMDbApiLib;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PAM.Data;
 using PAM.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PAM.Controllers
 {
@@ -20,9 +22,11 @@ namespace PAM.Controllers
             _viewBagImageController = new ViewBagImageController(_context);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
+            var apiLib = new ApiLib("k_b1de48d1");
+            var data = await apiLib.TitleAsync("tt0110413");
             return View();
         }
 
