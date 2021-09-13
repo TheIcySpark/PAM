@@ -8,6 +8,9 @@ namespace PAM.Models
     public class AnimeList
     {
         public int AnimeListID { get; set; }
-        public List<AnimeItem> AnimeItemsList { get; set; }
+        public int AnimeItems { get; set; }
+
+        public virtual int UserID { get; set; }
+        public virtual User User { get; set; }
     }
 }

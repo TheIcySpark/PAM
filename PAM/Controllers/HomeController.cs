@@ -1,9 +1,12 @@
 ﻿using IMDbApiLib;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PAM.Data;
 using PAM.Models;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PAM.Controllers
@@ -25,8 +28,25 @@ namespace PAM.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.imgsrc = _viewBagImageController.SetViewBagImage(User);
-            var apiLib = new ApiLib("k_b1de48d1");
-            var data = await apiLib.TitleAsync("tt0110413");
+
+            var user = _context.User.Where(id => id.UserID == 1).FirstOrDefault();
+            var u = user.AnimeLists;
+            AnimeList animeList = (new AnimeList
+            {
+                AnimeItems = 10,
+                UserID = 1
+            });
+            var f = _context.Add(animeList);
+            _context.SaveChanges();
+
+            ICollection<AnimeList> theAnimeList = new List<AnimeList>();
+            theAnimeList.Add(animeList);
+            theAnimeList.Add(animeList);
+            theAnimeList.Add(animeList);
+            theAnimeList.Add(animeList);
+            user.AnimeLists = theAnimeList;
+            user.UserName = "xdfasdf";
+            var i = await _context.SaveChangesAsync();
             return View();
         }
 

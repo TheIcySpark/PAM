@@ -103,6 +103,7 @@ namespace PAM.Controllers
                     user.Photo = target.ToArray();
                 }
             }
+
             _context.SaveChanges();
             return View(user);
         }

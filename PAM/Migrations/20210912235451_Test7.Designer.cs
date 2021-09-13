@@ -10,8 +10,8 @@ using PAM.Data;
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    [Migration("20210901122932_InitialCreate2")]
-    partial class InitialCreate2
+    [Migration("20210912235451_Test7")]
+    partial class Test7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,26 @@ namespace PAM.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("PAM.Models.AnimeList", b =>
+                {
+                    b.Property<int>("AnimeListID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnimeItems")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimeListID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("AnimeList");
+                });
+
             modelBuilder.Entity("PAM.Models.User", b =>
                 {
                     b.Property<int>("UserID")
@@ -28,8 +48,8 @@ namespace PAM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("GoogleUserID")
-                        .HasColumnType("int");
+                    b.Property<string>("GoogleUserID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
@@ -40,6 +60,22 @@ namespace PAM.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("PAM.Models.AnimeList", b =>
+                {
+                    b.HasOne("PAM.Models.User", "User")
+                        .WithMany("AnimeLists")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PAM.Models.User", b =>
+                {
+                    b.Navigation("AnimeLists");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,8 +10,8 @@ using PAM.Data;
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    [Migration("20210905200041_reallyBigChange")]
-    partial class reallyBigChange
+    [Migration("20210912213628_restauration")]
+    partial class restauration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,68 +21,15 @@ namespace PAM.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PAM.Models.AnimeItem", b =>
-                {
-                    b.Property<int>("AnimeItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Aired")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AnimeListID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Duration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Endings")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Episodes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GenresList")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InformationLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Openings")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Premiered")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Studios")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Synopsis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TralierLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("AnimeItemID");
-
-                    b.HasIndex("AnimeListID");
-
-                    b.ToTable("AnimeItem");
-                });
-
             modelBuilder.Entity("PAM.Models.AnimeList", b =>
                 {
                     b.Property<int>("AnimeListID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnimeItemsList")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UserID")
                         .HasColumnType("int");
@@ -115,23 +62,11 @@ namespace PAM.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("PAM.Models.AnimeItem", b =>
-                {
-                    b.HasOne("PAM.Models.AnimeList", null)
-                        .WithMany("AnimeItemsList")
-                        .HasForeignKey("AnimeListID");
-                });
-
             modelBuilder.Entity("PAM.Models.AnimeList", b =>
                 {
                     b.HasOne("PAM.Models.User", null)
                         .WithMany("AnimeLists")
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("PAM.Models.AnimeList", b =>
-                {
-                    b.Navigation("AnimeItemsList");
                 });
 
             modelBuilder.Entity("PAM.Models.User", b =>

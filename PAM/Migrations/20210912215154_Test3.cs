@@ -2,7 +2,7 @@
 
 namespace PAM.Migrations
 {
-    public partial class updateType3 : Migration
+    public partial class Test3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

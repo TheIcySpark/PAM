@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PAM.Data;
 
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    partial class PAMContextModelSnapshot : ModelSnapshot
+    [Migration("20210912214245_Test2")]
+    partial class Test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,15 +28,15 @@ namespace PAM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AnimeItems")
+                    b.Property<int>("AnimeItemsList")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("AnimeListID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("AnimeList");
                 });
@@ -64,7 +66,7 @@ namespace PAM.Migrations
                 {
                     b.HasOne("PAM.Models.User", "User")
                         .WithMany("AnimeLists")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

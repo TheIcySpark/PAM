@@ -2,22 +2,22 @@
 
 namespace PAM.Migrations
 {
-    public partial class InitialCreate2 : Migration
+    public partial class Test7 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "GoogleUser",
-                table: "User",
-                newName: "GoogleUserID");
+                name: "AnimeItemsList",
+                table: "AnimeList",
+                newName: "AnimeItems");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "GoogleUserID",
-                table: "User",
-                newName: "GoogleUser");
+                name: "AnimeItems",
+                table: "AnimeList",
+                newName: "AnimeItemsList");
         }
     }
 }

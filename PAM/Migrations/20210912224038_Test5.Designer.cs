@@ -10,8 +10,8 @@ using PAM.Data;
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    [Migration("20210901175857_updateType3")]
-    partial class updateType3
+    [Migration("20210912224038_Test5")]
+    partial class Test5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,26 @@ namespace PAM.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PAM.Models.AnimeList", b =>
+                {
+                    b.Property<int>("AnimeListID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnimeItemsList")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimeListID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("AnimeList");
+                });
 
             modelBuilder.Entity("PAM.Models.User", b =>
                 {
@@ -40,6 +60,22 @@ namespace PAM.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("PAM.Models.AnimeList", b =>
+                {
+                    b.HasOne("PAM.Models.User", "User")
+                        .WithMany("AnimeLists")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PAM.Models.User", b =>
+                {
+                    b.Navigation("AnimeLists");
                 });
 #pragma warning restore 612, 618
         }
