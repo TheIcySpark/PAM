@@ -10,7 +10,7 @@ namespace PAM.Models
         public int IMDBItemID { get; set; }
         public List<IMDBActor> ActorsList { get; set; }
         public string Awards { get; set; }
-        public List<IMDBCompany> Companys { get; set; }
+        public List<IMDBCompany> CompanysList { get; set; }
         public string ContentRating { get; set; }
         public List<IMDBDirector> DirectorsList { get; set; }
         public List<IMDBGenre> GenresList { get; set; }
