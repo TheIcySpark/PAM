@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PAM.Data;
 
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    partial class PAMContextModelSnapshot : ModelSnapshot
+    [Migration("20210919212326_IMDB database models")]
+    partial class IMDBdatabasemodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,12 +167,12 @@ namespace PAM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserID1")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("IMDBItemsListID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("IMDBItemsList");
                 });
@@ -253,11 +255,9 @@ namespace PAM.Migrations
 
             modelBuilder.Entity("PAM.Models.IMDBItemsList", b =>
                 {
-                    b.HasOne("PAM.Models.User", "UserID")
+                    b.HasOne("PAM.Models.User", null)
                         .WithMany("IMDBUserLists")
-                        .HasForeignKey("UserID1");
-
-                    b.Navigation("UserID");
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("PAM.Models.IMDBWriter", b =>

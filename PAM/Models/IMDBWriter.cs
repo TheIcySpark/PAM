@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace PAM.Models
 {
-    public class AnimeList
+    public class IMDBWriter
     {
-        public int AnimeListID { get; set; }
-        public int AnimeItems { get; set; }
-
+        public int IMDBWriterID { get; set; }
+        public string WriterName { get; set; }
     }
 }

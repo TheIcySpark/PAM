@@ -5,4 +5,21 @@
 <div class="text-center">
     <h1 class="display-4">PAM: Peliculas Anime y Mas</h1>
     <p>Tu base de datos de peliculas, anime y mas</p>
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            string googleId = User.Claims
+                .Where(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")
+                .Select(c => c.Value)
+                .FirstOrDefault();
+
+            if(googleId == "106963307967556376519")
+            {
+                <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" asp-area="" asp-controller="Home"
+                asp-action="UpdateDatabase">
+                    Update Database
+                </a>
+            }
+        }
+    }
 </div>
