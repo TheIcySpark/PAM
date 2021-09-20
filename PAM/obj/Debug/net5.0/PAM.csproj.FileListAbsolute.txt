@@ -447,3 +447,10 @@ C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\WebMa
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\Users\EditProfile.cshtml.g.cs
 C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\IMDbApiLib.dll
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\IMDBItems\Create.cshtml.g.cs
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\IMDBItems\Delete.cshtml.g.cs
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\IMDBItems\Details.cshtml.g.cs
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\IMDBItems\Edit.cshtml.g.cs
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\obj\Debug\net5.0\Razor\Views\IMDBItems\Index.cshtml.g.cs
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\TheIcySpark\Documents\TheIcySpark\GitHub\PAM\PAM\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll

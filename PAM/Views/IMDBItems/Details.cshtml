@@ -1,0 +1,205 @@
+﻿@model PAM.Models.IMDBItem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>IMDBItem</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm">
+            <h5>Title</h5>
+            @Html.DisplayFor(model => model.Title)
+        </div>
+        <div class="col-sm">
+            <h5>
+                @Html.DisplayNameFor(model => model.Type)
+            </h5>
+            @Html.DisplayFor(model => model.Type)
+        </div>
+        <div class="col-sm">
+            <h5>
+                @Html.DisplayNameFor(model => model.Runtime)
+            </h5>
+            @Html.DisplayFor(model => model.Runtime)
+        </div>
+        <div class="col-sm">
+            <h5>
+                @Html.DisplayNameFor(model => model.Year)
+            </h5>
+            @Html.DisplayFor(model => model.Year)
+        </div>
+    </div>
+
+    <br />
+    <div class="row align-items-center">
+        <div class="col">
+            <img src=@Model.ImageLink style="max-height:500px" />
+        </div>
+        <div class="col-8 embed-responsive embed-responsive-16by9 ">
+            <iframe src=@Model.TrailerLink class="embed-responsive-item" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+    <br />
+    <div>
+        <p>
+            @Html.DisplayFor(model => model.Plot);
+        </p>
+    </div>
+    <hr />
+
+    @* Genres list *@
+    <div class="row">
+        <div class="col">
+            <h5>Generos: </h5>
+        </div>
+        @{
+            foreach (var genre in Model.GenresList)
+            {
+                <div class="col"> @genre.Genre </div>
+            }
+        }
+    </div>
+    <hr />
+
+    @* Numbers information *@
+    <div class="row">
+        <div class="col-sm">
+            <h5>Content Rating</h5>
+            @Html.DisplayFor(model => model.ContentRating)
+        </div>
+        <div class="col-sm">
+            <h5>
+                IMDB Rating
+            </h5>
+            @Html.DisplayFor(model => model.IMDBRating)
+        </div>
+        <div class="col-sm">
+            <h5>
+                Metascore Rating
+            </h5>
+            @Html.DisplayFor(model => model.MetacriticRating)
+        </div>
+        <div class="col-sm">
+            <h5>
+                IMDB ID
+            </h5>
+            @Html.DisplayFor(model => model.IMDBID)
+        </div>
+    </div>
+    <hr />
+
+    @* Awards *@
+    <br />
+    <div class="row">
+        <div class="col-sm-2">
+            <h5>
+                @Html.DisplayNameFor(model => model.Awards)
+            </h5>
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Awards)
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        @* Companies *@
+        <div class="col">
+            <h5>
+                Companies List
+            </h5>
+        </div>
+        <div class="col">
+            @{
+                foreach (var company in Model.CompanysList)
+                {
+                    <div class="col"> @company.CompanyName </div>
+                }
+            }
+        </div>
+
+        @* Directors *@
+        <div class="col">
+            <h5>
+                Directors List
+            </h5>
+        </div>
+        <div class="col">
+            @{
+                foreach (var director in Model.DirectorsList)
+                {
+                    <div class="col"> @director.DirectorName </div>
+                }
+            }
+        </div>
+
+        @* Writers *@
+        <div class="col">
+            <h5>
+                Writers List
+            </h5>
+        </div>
+        <div class="col">
+            @{
+                foreach (var writer in Model.WritersList)
+                {
+                    <div class="col"> @writer.WriterName </div>
+                }
+            }
+        </div>
+    </div>
+    <hr />
+
+    @* Actors *@
+    <h2>
+        Actors
+    </h2>
+    <div class="row">
+        @*<div class="col">
+            <h5>
+                Companies List
+            </h5>
+        </div>
+        <div class="col">*@
+            @{
+                foreach (var actor in Model.ActorsList)
+                {
+                    <div class="col-4 p-3">
+                        <img src=@actor.ImageLink class="rounded-circle" width="150" height="150" />
+                        <div class="col"> 
+                            @actor.ActorName 
+                            <h5>
+                                as 
+                            </h5>
+                                @actor.CharacterName
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        @*@{
+            foreach (var actor in Model.ActorsList)
+            {
+                <img src=@actor.ImageLink class="col rounded-circle" width="150" height="100" />
+                <div class="col"> @actor.ActorName </div>
+                <div> as @actor.CharacterName</div>
+            }
+        }*@
+    </div>
+
+
+
+    <hr />
+</div>
+
+
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.IMDBItemID">Edit</a> |*@
+    <a asp-action="Index">Back to List</a>
+</div>

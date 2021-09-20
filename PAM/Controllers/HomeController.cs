@@ -36,6 +36,8 @@ namespace PAM.Controllers
             var apiLib = new ApiLib("k_b1de48d1");
             var IMDBData = await apiLib.TitleAsync("tt1375666/Trailer");
 
+            
+
             if(_context.IMDBItem
                 .Where(IMDBItem => IMDBItem.IMDBID == IMDBData.Id)
                 .Select(IMDBItem => IMDBItem.IMDBID)
@@ -106,7 +108,7 @@ namespace PAM.Controllers
                 Plot = IMDBData.Plot,
                 Runtime = IMDBData.RuntimeStr,
                 Title = IMDBData.Title,
-                TrailerLink = IMDBData.Trailer.Link,
+                TrailerLink = IMDBData.Trailer.LinkEmbed,
                 Type = IMDBData.Type,
                 WritersList = writersList,
                 Year = IMDBData.Year

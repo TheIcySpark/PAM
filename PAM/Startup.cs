@@ -52,7 +52,8 @@ namespace PAM
                 });
 
             services.AddDbContext<PAMContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("PAMContext")));
+                    options.UseLazyLoadingProxies()
+                    .UseSqlServer(Configuration.GetConnectionString("PAMContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
