@@ -8,7 +8,5 @@ namespace PAM.Models
     public class IMDBItemsList
     {
         public int IMDBItemsListID { get; set; }
-        public virtual List<IMDBItem> ItemsList { get; set; }
-
     }
 }

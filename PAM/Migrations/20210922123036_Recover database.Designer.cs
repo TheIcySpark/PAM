@@ -10,15 +10,15 @@ using PAM.Data;
 namespace PAM.Migrations
 {
     [DbContext(typeof(PAMContext))]
-    [Migration("20210919212631_update MIDBItemsList add user")]
-    partial class updateMIDBItemsListadduser
+    [Migration("20210922123036_Recover database")]
+    partial class Recoverdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("PAM.Models.IMDBActor", b =>
@@ -123,9 +123,6 @@ namespace PAM.Migrations
                     b.Property<string>("IMDBID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IMDBItemsListID")
-                        .HasColumnType("int");
-
                     b.Property<string>("IMDBRating")
                         .HasColumnType("nvarchar(max)");
 
@@ -155,8 +152,6 @@ namespace PAM.Migrations
 
                     b.HasKey("IMDBItemID");
 
-                    b.HasIndex("IMDBItemsListID");
-
                     b.ToTable("IMDBItem");
                 });
 
@@ -167,12 +162,7 @@ namespace PAM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserID1")
-                        .HasColumnType("int");
-
                     b.HasKey("IMDBItemsListID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("IMDBItemsList");
                 });
@@ -228,7 +218,7 @@ namespace PAM.Migrations
             modelBuilder.Entity("PAM.Models.IMDBCompany", b =>
                 {
                     b.HasOne("PAM.Models.IMDBItem", null)
-                        .WithMany("Companys")
+                        .WithMany("CompanysList")
                         .HasForeignKey("IMDBItemID");
                 });
 
@@ -246,22 +236,6 @@ namespace PAM.Migrations
                         .HasForeignKey("IMDBItemID");
                 });
 
-            modelBuilder.Entity("PAM.Models.IMDBItem", b =>
-                {
-                    b.HasOne("PAM.Models.IMDBItemsList", null)
-                        .WithMany("ItemsList")
-                        .HasForeignKey("IMDBItemsListID");
-                });
-
-            modelBuilder.Entity("PAM.Models.IMDBItemsList", b =>
-                {
-                    b.HasOne("PAM.Models.User", "UserID")
-                        .WithMany("IMDBUserLists")
-                        .HasForeignKey("UserID1");
-
-                    b.Navigation("UserID");
-                });
-
             modelBuilder.Entity("PAM.Models.IMDBWriter", b =>
                 {
                     b.HasOne("PAM.Models.IMDBItem", null)
@@ -273,23 +247,13 @@ namespace PAM.Migrations
                 {
                     b.Navigation("ActorsList");
 
-                    b.Navigation("Companys");
+                    b.Navigation("CompanysList");
 
                     b.Navigation("DirectorsList");
 
                     b.Navigation("GenresList");
 
                     b.Navigation("WritersList");
-                });
-
-            modelBuilder.Entity("PAM.Models.IMDBItemsList", b =>
-                {
-                    b.Navigation("ItemsList");
-                });
-
-            modelBuilder.Entity("PAM.Models.User", b =>
-                {
-                    b.Navigation("IMDBUserLists");
                 });
 #pragma warning restore 612, 618
         }

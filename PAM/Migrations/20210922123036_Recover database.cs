@@ -1,33 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PAM.Migrations
 {
-    public partial class IMDBdatabasemodels : Migration
+    public partial class Recoverdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AnimeList");
-
-            migrationBuilder.CreateTable(
-                name: "IMDBItemsList",
-                columns: table => new
-                {
-                    IMDBItemsListID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IMDBItemsList", x => x.IMDBItemsListID);
-                    table.ForeignKey(
-                        name: "FK_IMDBItemsList_User_UserID",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateTable(
                 name: "IMDBItem",
                 columns: table => new
@@ -45,18 +24,38 @@ namespace PAM.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrailerLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IMDBItemsListID = table.Column<int>(type: "int", nullable: true)
+                    Year = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IMDBItem", x => x.IMDBItemID);
-                    table.ForeignKey(
-                        name: "FK_IMDBItem_IMDBItemsList_IMDBItemsListID",
-                        column: x => x.IMDBItemsListID,
-                        principalTable: "IMDBItemsList",
-                        principalColumn: "IMDBItemsListID",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IMDBItemsList",
+                columns: table => new
+                {
+                    IMDBItemsListID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IMDBItemsList", x => x.IMDBItemsListID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GoogleUserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,16 +181,6 @@ namespace PAM.Migrations
                 column: "IMDBItemID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IMDBItem_IMDBItemsListID",
-                table: "IMDBItem",
-                column: "IMDBItemsListID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IMDBItemsList_UserID",
-                table: "IMDBItemsList",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_IMDBWriter_IMDBItemID",
                 table: "IMDBWriter",
                 column: "IMDBItemID");
@@ -212,38 +201,16 @@ namespace PAM.Migrations
                 name: "IMDBGenre");
 
             migrationBuilder.DropTable(
+                name: "IMDBItemsList");
+
+            migrationBuilder.DropTable(
                 name: "IMDBWriter");
 
             migrationBuilder.DropTable(
-                name: "IMDBItem");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "IMDBItemsList");
-
-            migrationBuilder.CreateTable(
-                name: "AnimeList",
-                columns: table => new
-                {
-                    AnimeListID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AnimeItems = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AnimeList", x => x.AnimeListID);
-                    table.ForeignKey(
-                        name: "FK_AnimeList_User_UserID",
-                        column: x => x.UserID,
-                        principalTable: "User",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AnimeList_UserID",
-                table: "AnimeList",
-                column: "UserID");
+                name: "IMDBItem");
         }
     }
 }
