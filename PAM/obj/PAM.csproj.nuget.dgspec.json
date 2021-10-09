@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj": {}
+    "C:\\Users\\theic\\Documents\\GitHub\\PAM\\PAM\\PAM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj": {
+    "C:\\Users\\theic\\Documents\\GitHub\\PAM\\PAM\\PAM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj",
+        "projectUniqueName": "C:\\Users\\theic\\Documents\\GitHub\\PAM\\PAM\\PAM.csproj",
         "projectName": "PAM",
-        "projectPath": "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\PAM.csproj",
-        "packagesPath": "C:\\Users\\TheIcySpark\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TheIcySpark\\Documents\\TheIcySpark\\GitHub\\PAM\\PAM\\obj\\",
+        "projectPath": "C:\\Users\\theic\\Documents\\GitHub\\PAM\\PAM\\PAM.csproj",
+        "packagesPath": "C:\\Users\\theic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\theic\\Documents\\GitHub\\PAM\\PAM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\TheIcySpark\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\theic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,6 +75,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "ScrapySharp": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "microsoft-web-helpers": {
               "target": "Package",

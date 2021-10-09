@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\TheIcySpark\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\TheIcySpark\\.nuget\\packages"
+      "C:\\Users\\theic\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\theic\\.nuget\\packages"
     ]
   }
 }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using ScrapySharp.Extensions;
 
 namespace PAM.Controllers
 {
@@ -30,91 +32,115 @@ namespace PAM.Controllers
             return View();
         }
 
+        public List<string> GetIMDBGenresLinks()
+        {
+            List<string> IMDBGenresLinks = new List<string>();
+            IMDBGenresLinks.AddRange(new string[] {
+                "https://www.imdb.com/search/title/?title_type=feature&num_votes=10000,&genres=action&languages=en&sort=user_rating,desc&explore=genres&view=simple" });
+            return IMDBGenresLinks;
+        }
+
+        public void UpdateDatabaseFromIMDBGenreLink(string genreLink)
+        {
+            string nextGenreLink = genreLink;
+            while (true)
+            {
+                HtmlWeb htmlWeb = new HtmlWeb();
+                HtmlDocument htmlDocument = htmlWeb.Load(nextGenreLink);
+                string nextPage = htmlDocument.DocumentNode.CssSelect(".next-page").First().GetAttributeValue("href");
+                var node = htmlDocument.DocumentNode.CssSelect(".lister-item-header");
+                var node2 = node.First().CssSelect("a").First().GetAttributeValue("href");
+                break;
+            }
+        }
 
         public async Task<IActionResult> UpdateDatabaseAsync()
         {
             var apiLib = new ApiLib("k_b1de48d1");
-            var IMDBData = await apiLib.TitleAsync("tt1375666/Trailer");
-
-            
-
-            if(_context.IMDBItem
-                .Where(IMDBItem => IMDBItem.IMDBID == IMDBData.Id)
-                .Select(IMDBItem => IMDBItem.IMDBID)
-                .FirstOrDefault() != null)
+            List<string> IMDBGenresLinks = GetIMDBGenresLinks();
+            foreach(string genreLink in IMDBGenresLinks)
             {
-                return Redirect("/");
+                UpdateDatabaseFromIMDBGenreLink(genreLink);
             }
+            //var IMDBData = await apiLib.TitleAsync("tt1375666/Trailer");
 
-            List<IMDBActor> actorsList = new List<IMDBActor>();
-            foreach(var actor in IMDBData.ActorList)
-            {
-                actorsList.Add(new IMDBActor
-                {
-                    ActorName = actor.Name,
-                    CharacterName = actor.AsCharacter,
-                    ImageLink = actor.Image
-                });
-            }
+            //if(_context.IMDBItem
+            //    .Where(IMDBItem => IMDBItem.IMDBID == IMDBData.Id)
+            //    .Select(IMDBItem => IMDBItem.IMDBID)
+            //    .FirstOrDefault() != null)
+            //{
+            //    return Redirect("/");
+            //}
 
-            List<IMDBCompany> companysList = new List<IMDBCompany>();
-            foreach(var company in IMDBData.CompanyList)
-            {
-                companysList.Add(new IMDBCompany
-                {
-                    CompanyName = company.Name
-                });
-            }
+            //List<IMDBActor> actorsList = new List<IMDBActor>();
+            //foreach(var actor in IMDBData.ActorList)
+            //{
+            //    actorsList.Add(new IMDBActor
+            //    {
+            //        ActorName = actor.Name,
+            //        CharacterName = actor.AsCharacter,
+            //        ImageLink = actor.Image
+            //    });
+            //}
 
-            List<IMDBDirector> directorsList = new List<IMDBDirector>();
-            foreach(var director in IMDBData.DirectorList)
-            {
-                directorsList.Add(new IMDBDirector
-                {
-                    DirectorName = director.Name
-                });
-            }
+            //List<IMDBCompany> companysList = new List<IMDBCompany>();
+            //foreach(var company in IMDBData.CompanyList)
+            //{
+            //    companysList.Add(new IMDBCompany
+            //    {
+            //        CompanyName = company.Name
+            //    });
+            //}
 
-            List<IMDBGenre> genresList = new List<IMDBGenre>();
-            foreach(var genre in IMDBData.GenreList)
-            {
-                genresList.Add(new IMDBGenre
-                {
-                    Genre = genre.Value
-                });
-            }
+            //List<IMDBDirector> directorsList = new List<IMDBDirector>();
+            //foreach(var director in IMDBData.DirectorList)
+            //{
+            //    directorsList.Add(new IMDBDirector
+            //    {
+            //        DirectorName = director.Name
+            //    });
+            //}
 
-            List<IMDBWriter> writersList = new List<IMDBWriter>();
-            foreach(var writer in IMDBData.WriterList)
-            {
-                writersList.Add(new IMDBWriter
-                {
-                    WriterName = writer.Name
-                });
-            }
+            //List<IMDBGenre> genresList = new List<IMDBGenre>();
+            //foreach(var genre in IMDBData.GenreList)
+            //{
+            //    genresList.Add(new IMDBGenre
+            //    {
+            //        Genre = genre.Value
+            //    });
+            //}
 
-            _context.IMDBItem.Add(new IMDBItem
-            {
-                ActorsList = actorsList,
-                Awards = IMDBData.Awards,
-                CompanysList = companysList,
-                ContentRating = IMDBData.ContentRating,
-                DirectorsList = directorsList,
-                GenresList = genresList,
-                ImageLink = IMDBData.Image,
-                IMDBID = IMDBData.Id,
-                IMDBRating = IMDBData.IMDbRating,
-                MetacriticRating = IMDBData.MetacriticRating,
-                Plot = IMDBData.Plot,
-                Runtime = IMDBData.RuntimeStr,
-                Title = IMDBData.Title,
-                TrailerLink = IMDBData.Trailer.LinkEmbed,
-                Type = IMDBData.Type,
-                WritersList = writersList,
-                Year = IMDBData.Year
-            });
+            //List<IMDBWriter> writersList = new List<IMDBWriter>();
+            //foreach(var writer in IMDBData.WriterList)
+            //{
+            //    writersList.Add(new IMDBWriter
+            //    {
+            //        WriterName = writer.Name
+            //    });
+            //}
 
-            await _context.SaveChangesAsync();
+            //_context.IMDBItem.Add(new IMDBItem
+            //{
+            //    ActorsList = actorsList,
+            //    Awards = IMDBData.Awards,
+            //    CompanysList = companysList,
+            //    ContentRating = IMDBData.ContentRating,
+            //    DirectorsList = directorsList,
+            //    GenresList = genresList,
+            //    ImageLink = IMDBData.Image,
+            //    IMDBID = IMDBData.Id,
+            //    IMDBRating = IMDBData.IMDbRating,
+            //    MetacriticRating = IMDBData.MetacriticRating,
+            //    Plot = IMDBData.Plot,
+            //    Runtime = IMDBData.RuntimeStr,
+            //    Title = IMDBData.Title,
+            //    TrailerLink = IMDBData.Trailer.LinkEmbed,
+            //    Type = IMDBData.Type,
+            //    WritersList = writersList,
+            //    Year = IMDBData.Year
+            //});
+
+            //await _context.SaveChangesAsync();
 
             return Redirect("/");
         }
