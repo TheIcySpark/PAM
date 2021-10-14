@@ -36,7 +36,7 @@ namespace PAM.Controllers
         {
             List<string> IMDBGenresLinks = new List<string>();
             IMDBGenresLinks.AddRange(new string[] {
-                "https://www.imdb.com/search/title/?title_type=feature&num_votes=10000,&genres=action,mystery&languages=en&explore=genres&ref_=adv_prv" });
+                "https://www.imdb.com/search/title/?genres=horror&explore=title_type,genres&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=3396781f-d87f-4fac-8694-c56ce6f490fe&pf_rd_r=7K3WGJ7Z07FEYEENYE6F&pf_rd_s=center-1&pf_rd_t=15051&pf_rd_i=genre&ref_=ft_gnr_pr1_i_3" });
             return IMDBGenresLinks;
         }
 
@@ -63,7 +63,10 @@ namespace PAM.Controllers
                     var apiLib = new ApiLib("k_b1de48d1");
 
                     var IMDBData = await apiLib.TitleAsync(IMDBId + "/Trailer");
-
+                    if(IMDBData.ErrorMessage == "" || IMDBData.ErrorMessage == null)
+                    {
+                        continue;
+                    }
 
                     List<IMDBActor> actorsList = new List<IMDBActor>();
                     foreach (var actor in IMDBData.ActorList)
