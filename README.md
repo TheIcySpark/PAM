@@ -28,16 +28,16 @@ Project build using c# asp .net, this project was its own database, but the data
 
 Next images show how the project looks like.
 
-![](readme\home.png)
+![](readme/home.png)
 
 Authentication using google services
 
-![](readme\authentication.png)
+![](readme/authentication.png)
 
 List of users
 
-![](readme\usersList.png)
+![](readme/usersList.png)
 
 Movie data
 
-![](readme\movie.png)
+![](readme/movie.png)
